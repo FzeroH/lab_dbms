@@ -1,15 +1,35 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <h1>DB_HW Todo Application</h1>
+  <AddTodoItem/>
+  <hr/>
+  <TodoList
+  v-bind:todos = "todos"
+  @remove-todo="removeTodo"/>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+
+import TodoList from "./components/TodoList";
+import AddTodoItem from "./components/AddTodoItem";
 
 export default {
   name: 'App',
+  data(){
+    return {todos: []}
+  },
   components: {
-    HelloWorld
+    AddTodoItem,
+    TodoList
+  },
+  mounted() {
+    fetch("http://80.76.42.97:3000/todos")
+        .then(response => response.json(response))
+        .then(json => {this.todos = json})
+  },
+  methods: {
+    removeTodo(id){
+      this.todos = this.todos.filter(t => t.id !== id)
+    },
   }
 }
 </script>
