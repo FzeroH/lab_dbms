@@ -1,0 +1,10 @@
+image: docker
+services:
+  - docker:dind
+stages:
+  - deploy
+step-deploy-prod:
+  stage: deploy
+  script:
+    - docker build -t app/db_wh .
+    - docker run -d -p 80:8080 --rm --name todoapp app/db_wh
