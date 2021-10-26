@@ -1,5 +1,5 @@
 <template>
-  <form @submit.prevent="onSubmit">
+  <form @submit="onSubmit">
     <input type="text" v-model="title"/>
     <button type="submit">Добавить</button>
   </form>
@@ -14,7 +14,25 @@ export default {
     }
   },
   methods:{
+
     onSubmit(){
+      let bearer_token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoidG9kb191c2VyIn0.00oETdVsYnWPnFTnzjWXdDsUxDBIdPu9U4F2HPaQm5U'
+      var bearer = 'Bearer ' + bearer_token
+      if(this.title.trim()){
+        let data = {
+          'task': this.title
+        }
+        fetch("http://80.76.42.97:3000/todos", {
+          method: 'POST',
+          headers: {
+            'Authorization' : bearer,
+            'Content-type' : 'application/json',
+            "Access-Control-Allow-Origin": "*"
+          },
+          body: JSON.stringify(data)
+        })//.then(response => console.log(response.json()))
+
+      }
       this.title = ''
     }
   }

@@ -1,5 +1,5 @@
 <template>
-  <h1>DB_HW Todo Application</h1>
+  <h1>Todo Application</h1>
   <AddTodoItem/>
   <hr/>
   <TodoList
