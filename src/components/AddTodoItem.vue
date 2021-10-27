@@ -17,7 +17,7 @@ export default {
 
     onSubmit(){
       let bearer_token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoidG9kb191c2VyIn0.00oETdVsYnWPnFTnzjWXdDsUxDBIdPu9U4F2HPaQm5U'
-      var bearer = 'Bearer ' + bearer_token
+      const bearer = 'Bearer ' + bearer_token;
       if(this.title.trim()){
         let data = {
           'task': this.title
@@ -30,7 +30,7 @@ export default {
             "Access-Control-Allow-Origin": "*"
           },
           body: JSON.stringify(data)
-        })//.then(response => console.log(response.json()))
+        })
 
       }
       this.title = ''
