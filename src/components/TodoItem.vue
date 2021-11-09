@@ -1,7 +1,7 @@
 <template>
  <li>
     <span v-bind:class="{done:todo.done}">
-      <input type="checkbox" @change="markDone(todo)"/>
+      <input type="checkbox" v-if="!todo.done" @change="markDone(todo)"/>
       <!--<strong>{{todo.id}}.</strong>-->
       {{todo.task}}
     </span>
@@ -9,7 +9,7 @@
         class="remove_btn"
         v-on:click="$emit('remove-todo',todo.id)"
     >
-      &times;
+      Удалить
     </button>
   </li>
 </template>
@@ -32,23 +32,29 @@ export default {
 </script>
 
 <style scoped>
-  li{
+  li {
     border: 1px solid #ccc;
     display: flex;
     justify-content: space-between;
-    padding: .5rem 2rem;
-    margin-bottom: 1rem;
+    padding: 10px;
   }
-  .remove_btn{
+
+  .remove_btn {
+    height: 100%;
+    padding: 2px 5px;
+    border: 1px solid transparent;
+    border-radius: 5px;
     background-color: red;
-    border-radius: 50%;
     color: white;
     font-weight: bold;
+    cursor: pointer;
   }
-  input{
+
+  input {
     margin-right: 1.5rem;
   }
-  .done{
+
+  .done {
     text-decoration: line-through;
   }
 </style>
