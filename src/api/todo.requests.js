@@ -15,7 +15,7 @@ class TodosService {
   })
 
   static removeTodo = (id) => new Promise((resolve, reject) => {
-    instance.delete(`todos?id=eq.${id}`)
+    instance.delete(`/todos?id=eq.${id}`)
         .then((res) => resolve(res))
         .catch((error) => reject(error));
   })
