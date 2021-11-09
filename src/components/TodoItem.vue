@@ -5,8 +5,12 @@
       <!--<strong>{{todo.id}}.</strong>-->
       {{todo.task}}
     </span>
-    <button class="remove_btn"
-    v-on:click="$emit('remove-todo',todo.id)">&times;</button>
+    <button
+        class="remove_btn"
+        v-on:click="$emit('remove-todo',todo.id)"
+    >
+      &times;
+    </button>
   </li>
 </template>
 

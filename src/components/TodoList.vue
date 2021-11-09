@@ -2,9 +2,10 @@
 <div>
   <ul>
     <TodoItem
-    v-for:= "todo of todos"
-    v-bind:todo = "todo"
-    v-on:remove-todo="removeTodo"/>
+      v-for:="todo of todos"
+      v-bind:todo = "todo"
+      v-on:remove-todo="removeTodo"
+    />
   </ul>
 </div>
 </template>

@@ -1,45 +1,48 @@
 <template>
   <h1>Todo Application</h1>
-  <AddTodoItem/>
+  <AddTodoItem @add-title="initTodos"/>
   <hr/>
   <TodoList
-  v-bind:todos = "todos"
-  @remove-todo="removeTodo"/>
+    v-bind:todos="todos"
+    @remove-todo="removeTodo"
+  />
 </template>
 
 <script>
-
 import TodoList from "./components/TodoList";
 import AddTodoItem from "./components/AddTodoItem";
 
+import TodosService from "./api/todo.requests";
+
 export default {
   name: 'App',
-  data(){
-    return {todos: []}
+
+  data() {
+    return {
+      todos: []
+    }
   },
+
   components: {
     AddTodoItem,
     TodoList
   },
+
   mounted() {
-    fetch("http://80.76.42.97:3000/todos")
-        .then(response => response.json(response))
-        .then(json => {this.todos = json})
+    this.initTodos();
   },
+
   methods: {
-    removeTodo(id){
-      let bearer_token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoidG9kb191c2VyIn0.00oETdVsYnWPnFTnzjWXdDsUxDBIdPu9U4F2HPaQm5U'
-      const bearer = 'Bearer ' + bearer_token;
-      this.todos = this.todos.filter(t => t.id !== id)
-      fetch("http://80.76.42.97:3000/todos?id=eq."+id, {
-        method: 'DELETE',
-        headers: {
-          'Authorization' : bearer,
-          'Content-type' : 'application/json',
-          "Access-Control-Allow-Origin": "*"
-        },
-      })
+    async removeTodo(id){
+      await TodosService.removeTodo(id)
+          .catch((error) => console.error(error.message));
     },
+
+    async initTodos() {
+      await TodosService.getTodos()
+          .then((data) => this.todos = data)
+          .catch((error) => console.error(error.message));
+    }
   }
 }
 </script>
