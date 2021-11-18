@@ -2,19 +2,17 @@
  <li>
     <span v-bind:class="{done:todo.done}">
       <input type="checkbox" v-if="!todo.done" @change="markDone(todo)"/>
-      <!--<strong>{{todo.id}}.</strong>-->
       {{todo.task}}
     </span>
-    <button
-        class="remove_btn"
-        v-on:click="$emit('remove-todo',todo.id)"
-    >
+    <button class="remove_btn" v-on:click="$emit('remove-todo',todo.id)">
       Удалить
     </button>
   </li>
 </template>
 
 <script>
+import TodosService from "../api/todo.requests";
+
 export default {
   name: "TodoItem",
   props: {
@@ -24,8 +22,10 @@ export default {
     }
   },
   methods: {
-    markDone(todo){
+    async markDone(todo){
       todo.done = !todo.done
+        await TodosService.updateTodoStatus(todo.id)
+            .catch((error) => console.error(error.message))
     }
   }
 }
@@ -56,5 +56,6 @@ export default {
 
   .done {
     text-decoration: line-through;
+
   }
 </style>
