@@ -19,6 +19,12 @@ class TodosService {
         .then((res) => resolve(res))
         .catch((error) => reject(error));
   })
+
+  static updateTodoStatus = (id) => new Promise((resolve, reject) => {
+    instance.patch(`/todos?id=eq.${id}`,{"done":"true"})
+        .then((res) => resolve(res))
+        .catch((error) => reject(error))
+  })
 }
 
 export default TodosService;
