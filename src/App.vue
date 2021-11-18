@@ -34,6 +34,7 @@ export default {
 
   methods: {
     async removeTodo(id){
+      this.todos = this.todos.filter(t=> t.id !== id)
       await TodosService.removeTodo(id)
           .catch((error) => console.error(error.message));
     },
